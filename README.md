@@ -4,7 +4,7 @@ This project aims to solve the problem of finding and booking travel accommodati
 
 Users can explore listings, book trips, and also add their own listings, making it a community-driven travel platform.
 
-#Solution/Features: 
+# Solution/Features: 
 - User authentication (login/signup)
 - Browse travel destinations
 - Book trips
