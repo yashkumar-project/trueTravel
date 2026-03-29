@@ -40,6 +40,7 @@ date 29/03/2026
 - Users can add listings with validation
 - Minimum 150 character description
 - Default image handling added
+- Added a bulk data initialization feature to seed the database with sample listings for development and testing purposes.
 
 ## Challenges Faced
 
