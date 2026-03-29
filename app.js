@@ -31,6 +31,14 @@ app.get('/listings',async (req,res) => {
    res.render("./listings/Listings.ejs", {Listings});
 });
 
+//show route to show data when clicked
+app.get('/listings/:id', async (req, res) => {
+    let {id} = req.params;
+    console.log(id);
+    const destination = await Listing.findById(id);
+    res.render("./listings/show.ejs", {destination});    
+});
+
 app.listen(8000, () => {
     console.log("Server is running on port 8000");
 });

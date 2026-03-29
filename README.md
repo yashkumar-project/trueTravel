@@ -41,6 +41,7 @@ date 29/03/2026
 - Minimum 150 character description
 - Default image handling added
 - Added a bulk data initialization feature to seed the database with sample listings for development and testing purposes.
+- A new page to display data of any listing when selected from the listing.
 
 ## Challenges Faced
 
