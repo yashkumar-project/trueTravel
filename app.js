@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Listing = require("./models/listing.js");
+const listing = require('./models/listing.js');
+const path = require ( "path"); 
 
 app.use(express.json());
 
@@ -16,24 +18,17 @@ async function main() {
     await mongoose.connect(uri);
 }
         
+app.set ( "viewengine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 app.get('/', (req, res) => {
     res.send("hello world");
 });
 
-app.get('/test', async (req,res)=> {
-    let testValue = new Listing ({
-  house_name: "Forest Cabin Retreat",
-  image: "",
-  description: "A peaceful cabin located deep inside the forest, surrounded by greenery and fresh air. Perfect for people looking to disconnect from busy city life and enjoy nature, silence, and a calming environment with basic modern amenities available.",
-  address: "Near Jim Corbett National Park",
-  country: "India",
-  price: 3500
-});
-
-  await testValue.save();
-   console.log(testValue);
-   res.send ( " data added successfully");
+// index route for showing all listing.
+app.get('/listings',async (req,res) => {
+   const Listings = await Listing.find({});
+   res.render("./listings/Listings.ejs", {Listings});
 });
 
 app.listen(8000, () => {

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Travel</title>
+</head>
+<body>
+    <h3>All Listings</h3>
+<ul>
+   <% for( let list of Listings){ %>
+        <li id="listingTitle"><a href="/listings/<%= list._id%>"><%= list.title %></a></li>
+        <ul><%= list.description %></ul>
+        <ul><%= list.location %></ul>
+        <ul><%= list.country %></ul>
+        <ul>$<%= list.price %>/night</ul>
+        <br>
+        <br>
+   <% } %>
+</ul>
+</body>
+</html>
+
