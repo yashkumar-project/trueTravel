@@ -3,17 +3,23 @@ const {Schema} = mongoose;
 
 const listSchema = new Schema({
     
-    house_name: {
+    title: {
         type: String,
         required: false
     },
     
     image: {
-        type: String,
-        required: [true, "image is required"],
-        default: "https://shorturl.at/3ASIb",
-        set: (v) => v===""? "https://shorturl.at/3ASIb":v
+    filename: {
+      type: String,
+      default: "listingimage",
     },
+    url: {
+      type: String,
+      required: [true, "image url is required"],
+      default: "https://shorturl.at/3ASIb",
+      set: (v) => (v === "" ? "https://shorturl.at/3ASIb" : v),
+    },
+  },
 
     description: {
         type: String,
@@ -21,7 +27,7 @@ const listSchema = new Schema({
         // minlength: [150, "Minimum 150 characters required"]
     },
 
-    address: {
+    location: {
         type: String,
         required: [true, "address is required"],
     },
