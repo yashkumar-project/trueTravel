@@ -31,4 +31,26 @@ Phase 3:
 - Connected frontend with backend APIs
 - Improved UI and responsiveness
 
-The project follows a modular structure separating frontend and backend logic.
+The project follows a modular structure separating frontend and backend logic. 
+
+date 29/03/2026
+
+## New Feature: Listing Creation
+
+- Users can add listings with validation
+- Minimum 150 character description
+- Default image handling added
+
+## Challenges Faced
+
+- MongoDB connection was not initialized before server start
+- Wrong folder execution caused old code to run
+- Validation errors were not handled properly (caused silent failures)
+
+## Learnings
+
+- Always connect DB before starting server
+- Use try-catch in async routes
+- Ensure correct working directory before running code
+- Use POST instead of GET for data creation
+
