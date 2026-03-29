@@ -1,3 +1,4 @@
 node_modules/*
 models/test.txt
 .history/*
+.VSCodeCounter/*
