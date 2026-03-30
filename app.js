@@ -4,11 +4,16 @@ const mongoose = require('mongoose');
 const Listing = require("./models/listing.js");
 const path = require ( "path");
 const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate')
 
 app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.engine('ejs', ejsMate);
+
+app.set ( "viewengine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 main().then(()=>{
     console.log("connected successfully");
@@ -20,9 +25,6 @@ async function main() {
     const uri = 'mongodb://127.0.0.1:27017/truetravel'; 
     await mongoose.connect(uri);
 }
-        
-app.set ( "viewengine", "ejs");
-app.set("views", path.join(__dirname, "views"));
 
 app.get('/', (req, res) => {
     res.send("hello world");
