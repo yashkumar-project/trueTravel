@@ -2,10 +2,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Listing = require("./models/listing.js");
-const listing = require('./models/listing.js');
+// const listing = require('./models/listing.js');
 const path = require ( "path"); 
 
 app.use(express.json());
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 main().then(()=>{
     console.log("connected successfully");
@@ -31,12 +33,23 @@ app.get('/listings',async (req,res) => {
    res.render("./listings/Listings.ejs", {Listings});
 });
 
+// route to create new listings
+app.get('/listings/new', (req, res) => {
+    res.render("./listings/new.ejs");
+});
+
 //show route to show data when clicked
 app.get('/listings/:id', async (req, res) => {
     let {id} = req.params;
-    console.log(id);
+    // console.log(id);
     const destination = await Listing.findById(id);
     res.render("./listings/show.ejs", {destination});    
+});
+
+app.post('/listings', async (req,res) => {
+    const newListing = new Listing(req.body);
+    await newListing.save();
+    res.redirect('/listings?alert=newListingAdded');
 });
 
 app.listen(8000, () => {
