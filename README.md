@@ -61,3 +61,7 @@ date: 30-03-2026
 adding a feature to add a new lisiting and also add new form to collect data for new listing. the prolem I faced during this is that I learn what is route overwrite and how to preven them.
 
 adding one more feature where user can update or delete any destination/listing.
+
+31/03/2026
+
+adding new styule with handlening a fle loss and mess and regain and create osm epart of my code it is the hardest part of my code till date in this project. Now moving toward next thing.

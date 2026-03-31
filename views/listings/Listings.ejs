@@ -1,28 +1,16 @@
 <% layout('layouts/boilerplate') %>
 
-    <!-- <link rel="stylesheet" href="/listing css/listing.css"> -->
-
 <body>
-    <h3>All Listings</h3>
-    <p>Want to create a new listing. Click below</p>
-    <button onclick="window.location.href='/listings/new'">Create New Listing</button>
-<ul>
-   <% for( let list of Listings){ %>
-        <li id="listingTitle"><a href="/listings/<%= list._id%>"><%= list.title %></a></li>
-        <div class="listingImage">
-            <ul>
-                <img id="listingImage" src="<%= list.image.url %>" alt="<%= list.title %>">
-            </ul>
-        </div>
-        <!--  if needed in future  -->
-        <!-- <ul><%= list.description %></ul> -->
-        <!-- <ul><%= list.location %></ul> 
-        <ul><%= list.country %></ul>
-        <ul>$<%= list.price %>/night</ul> -->
-        <br>
-        <br>
-   <% } %>
-</ul>
+
+<% for( let list of Listings){ %>
+<div class="card" style="width: 18rem;">
+  <img src="<%= list.image.url %>" class="card-img-top" alt="..">
+  <div class="card-body">
+    <p class="card-text"><a style="text-decoration: none; color: black;" href="/listings/<%= list._id%>"><%= list.title %></a></p>
+  </div>
+</div>
+<br>
+<% } %>
 </body>
 
 
