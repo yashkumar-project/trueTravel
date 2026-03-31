@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Listing = require("./models/listing.js");
-// const listing = require('./models/listing.js');
 const path = require ( "path"); 
+const ejs = require('ejs'); 
+const ejsmate = require('ejs-mate');       
+const methodOverride = require('method-override'); 
+
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -21,8 +24,9 @@ async function main() {
     await mongoose.connect(uri);
 }
         
-app.set ( "viewengine", "ejs");
+app.set ( "view engine", "ejs"); // ✅ FIX
 app.set("views", path.join(__dirname, "views"));
+app.engine('ejs', ejsmate);
 
 app.get('/', (req, res) => {
     res.send("hello world");
@@ -31,7 +35,7 @@ app.get('/', (req, res) => {
 // index route for showing all listing.
 app.get('/listings',async (req,res) => {
    const Listings = await Listing.find({});
-   res.render("./listings/Listings.ejs", {Listings});
+   res.render("./listings/listings.ejs", {Listings}); // ✅ FIX
 });
 
 // route to create new listings
