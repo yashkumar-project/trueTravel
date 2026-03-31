@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 // index route for showing all listing.
 app.get('/listings',async (req,res) => {
    const Listings = await Listing.find({});
-   res.render("./listings/Listings.ejs", {Listings});
+   res.render("./listings/listings.ejs", {Listings}); // ✅ FIX
 });
 
 // route to create new listings

@@ -1,0 +1,35 @@
+.navbar {
+    background-color: aliceblue;
+    height: 4rem;
+}
+
+.fa-compass {
+    color: rgb(224, 35, 11);
+    font-size: 2rem;
+    width: 5vw;
+    /* margin-right: 30vw; */
+}
+
+.collapse {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-right: 5vw;
+}
+
+.navbar-nav .nav-link {
+  transition: all 0.1s ease;
+  /* color: brown; */
+
+}
+
+.navbar-nav .nav-link:hover {
+  transform: translateY(-2px);
+  border-bottom: 2px solid black;
+  transition: border-bottom 0.6s ease-in;
+}
+
+.nav-link {
+    color: black;
+    font-size: 01rem;
+}
