@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destination Info</title>
-</head>
+<% layout('layouts/boilerplate') %>
+
 <body>
     <h2>Welcomen to <%=destination.title%></h2>
     <img src="<%=destination.image.url%>" alt="<%=destination.title%>">
@@ -14,5 +9,10 @@
     <h3>location is <%=destination.location%></h3>
     <h3>country: <%=destination.country%></h3>
     <p><b>Price:  &#8377 <%=destination.price.toLocaleString("en-IN")%></b></p>
+
+    <a href="/listings/<%=destination._id%>/edit"><button>Edit</button></a>
+    <br><br>
+    <form method="POST" action="/listings/<%= destination._id%>?_method=DELETE">
+        <button>Delete This Post</button>
+    </form>
 </body>
-</html>

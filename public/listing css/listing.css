@@ -1,0 +1,6 @@
+#listingImage {
+  width: 500px;
+  height: 500px;
+  object-fit: cover; /* image stretch na ho */
+  margin-top: 1rem;
+}
