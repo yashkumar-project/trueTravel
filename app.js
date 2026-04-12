@@ -6,6 +6,7 @@ const path = require ( "path");
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
+const expressError = require('./utils/expressError.js');
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -32,10 +33,10 @@ app.get('/', (req, res) => {
 });
 
 // index route for showing all listing.
-app.get('/listings',async (req,res) => {
+app.get('/listings',wrapAsync( async (req,res) => {
    const Listings = await Listing.find({});
    res.render("./listings/listings.ejs", {Listings}); // ✅ FIX
-});
+}));
 
 // route to create new listings
 app.get('/listings/new', (req, res) => {
@@ -43,18 +44,19 @@ app.get('/listings/new', (req, res) => {
 });
 
 //show route to show data when clicked
-app.get('/listings/:id', async (req, res) => {
+app.get('/listings/:id', wrapAsync( async (req, res) => {
     let {id} = req.params;
     // console.log(id);
     const destination = await Listing.findById(id);
     res.render("./listings/show.ejs", {destination});    
-});
+}));
 
-app.get('/listings/:id/edit', async (req, res) => {
+app.get('/listings/:id/edit',wrapAsync( async (req, res) => {
     let {id} = req.params;
     const destination = await Listing.findById(id);
     res.render("./listings/edit.ejs", {destination});
-});
+}
+));
 
 app.post('/listings',
     wrapAsync( async (req,res,next) => {
@@ -64,23 +66,33 @@ app.post('/listings',
   })
 );
 
-app.put('/listings/:id', async (req,res) => {
+app.put('/listings/:id', wrapAsync( async (req,res) => {
     let { id } = req.params;
     const updatedListing= req.body.listing;
     console.log(updatedListing);
     await Listing.findByIdAndUpdate(id, updatedListing);
     res.redirect(`/listings/${id}`);
-});
+}
+));
 
-app.delete('/listings/:id', async (req,res) => {
+app.delete('/listings/:id', wrapAsync( async (req,res) => {
     let {id} = req.params;
     console.log(id);
     
     await Listing.findByIdAndDelete(id);
     console.log(`Deleted successfully with the ${id}`);
     res.redirect("/listings");
+}
+));
+
+app.use((req, res, next) => {
+  next(new expressError("Page Not Found", 404 ));
 });
 
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "Something went wrong" } = err;
+  res.status(statusCode).send(message);
+});
 app.listen(8000, () => {
     console.log("Server is running on port 8000");
 });
