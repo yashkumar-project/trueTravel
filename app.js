@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Listing = require("./models/listing.js");
 const path = require ( "path");
 const methodOverride = require('method-override');
-const ejsMate = require('ejs-mate')
+const ejsMate = require('ejs-mate');
+const wrapAsync = require('./utils/wrapAsync.js');
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -55,11 +56,13 @@ app.get('/listings/:id/edit', async (req, res) => {
     res.render("./listings/edit.ejs", {destination});
 });
 
-app.post('/listings', async (req,res) => {
+app.post('/listings',
+    wrapAsync( async (req,res,next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect('/listings?alert=newListingAdded');
-});
+  })
+);
 
 app.put('/listings/:id', async (req,res) => {
     let { id } = req.params;
