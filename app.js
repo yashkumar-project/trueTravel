@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
 const expressError = require('./utils/expressError.js');
+const {listingSchema} = require('./schema.js');
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -60,6 +61,11 @@ app.get('/listings/:id/edit',wrapAsync( async (req, res) => {
 
 app.post('/listings',
     wrapAsync( async (req,res,next) => {
+    let result = listingSchema.validate(req.body);
+    console.log(result);
+    if ( result.error) {
+        new expressError(result.error, 400 );
+    }
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect('/listings?alert=newListingAdded');
