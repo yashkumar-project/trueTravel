@@ -40,7 +40,14 @@ const listSchema = new Schema({
     price: {
         type: Number,
         required: [true, "price is required"]
-    }
+    },
+
+    review: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "review",
+        },
+    ],
 });
 
 module.exports = mongoose.model("Listing", listSchema);

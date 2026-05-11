@@ -1,18 +1,42 @@
 <% layout('layouts/boilerplate') %>
 
 <body>
-    <h2>Welcomen to <%=destination.title%></h2>
-    <img src="<%=destination.image.url%>" alt="<%=destination.title%>">
     <br>
-    <p><%= destination.description%></p>
+    <h2 class="card-title">Welcomen to <%=destination.title%></h2>
     <br>
-    <h3>location is <%=destination.location%></h3>
-    <h3>country: <%=destination.country%></h3>
-    <p><b>Price:  &#8377 <%=destination.price.toLocaleString("en-IN")%></b></p>
+    <div class="card mb-3" >
+       <img src="<%=destination.image.url%>" class="card-img-top" alt="<%=destination.title%>">
+     <div class="card-body">
+       <p class="card-text"><%= destination.description%></p>
+       <p>location: <%=destination.location%>, <%=destination.country%></p>
+       <h3 class="card-text"><small class="text-body-secondary">Price:  &#8377 <%=destination.price.toLocaleString("en-IN")%></small></h3>
+     </div>
+    </div>
 
-    <a href="/listings/<%=destination._id%>/edit"><button>Edit</button></a>
+    <a href="/listings/<%=destination._id%>/edit"><button type="button" class="btn btn-outline-secondary">Edit Detail</button></a>
     <br><br>
     <form method="POST" action="/listings/<%= destination._id%>?_method=DELETE">
-        <button>Delete This Post</button>
+        <button type="button" class="btn btn-outline-danger">Delete This Post</button>
     </form>
+    <br>
+    <div class="mb-3 mt-3">
+      <hr>
+      <h4>Leave a review</h4>
+      <br>
+      <form action="">
+        <div class="mb-3 mt-3">
+          <label for="rating">Rating</label>
+          <input type="range" min="1" max="5" name="review[rating]" class="form-range">
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="comment">comments</label>
+          <textarea 
+            name="review[comment]"
+            rows="5"
+            class="form-control"
+            id="comment">Put your review here....</textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit">
+      </form>
+    </div>
 </body>

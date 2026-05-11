@@ -1,11 +1,11 @@
 <% layout('layouts/boilerplate') %>
 
 <body>
-
-<a href="/listings/new" class="btn btn-primary">Create New Listing</a>
+  <br>
+<a href="/listings/new" class=""><button type="button" class="btn btn-outline-info ">Info </button></a>
 
 <% for( let list of Listings){ %>
-<div class="card" style="width: 18rem;">
+<div class="card mt-3" style="width: 18rem;">
   <img src="<%= list.image.url %>" class="card-img-top" alt="..">
   <div class="card-body">
     <p class="card-text"><a style="text-decoration: none; color: black;" href="/listings/<%= list._id%>"><%= list.title %></a></p>
