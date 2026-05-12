@@ -8,6 +8,7 @@ const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
 const expressError = require('./utils/expressError.js');
 const {listingSchema} = require('./schema.js');
+const review = require("./models/review.js");
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -91,6 +92,20 @@ app.delete('/listings/:id', wrapAsync( async (req,res) => {
 }
 ));
 
+// review route 
+// post route to store new review
+app.post( '/listings/:id/reviews', async (req,res) => {
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new review (req.body.review);
+    await listing.review.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+    console.log("response saved");
+    res.redirect(`/listings/${listing._id}`);
+})
+
+// to show error if no page available, 404
 app.use((req, res, next) => {
   next(new expressError("Page Not Found", 404 ));
 });
@@ -99,6 +114,8 @@ app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("./listings/error.ejs", { message, statusCode });
 });
+
+// starting server code
 app.listen(8000, () => {
     console.log("Server is running on port 8000");
 });
