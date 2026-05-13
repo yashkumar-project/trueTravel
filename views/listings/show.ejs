@@ -16,14 +16,14 @@
     <a href="/listings/<%=destination._id%>/edit"><button type="button" class="btn btn-outline-secondary">Edit Detail</button></a>
     <br><br>
     <form method="POST" action="/listings/<%= destination._id%>?_method=DELETE">
-        <button type="button" class="btn btn-outline-danger">Delete This Post</button>
+        <button type="submit" class="btn btn-outline-danger">Delete This Post</button>
     </form>
     <br>
     <div class="mb-3 mt-3">
       <hr>
       <h4>Leave a review</h4>
       <br>
-      <form action="/listings/<%=destination._id%>/reviews" method="post">
+      <form action="/listings/<%=destination._id%>/reviews" method="post" novalidate class="need-validation">
         <div class="mb-3 mt-3">
           <label for="rating">Rating</label>
           <input type="range" min="1" max="5" name="review[rating]" class="form-range">
@@ -34,9 +34,26 @@
             name="review[comment]"
             rows="5"
             class="form-control"
-            id="comment">Put your review here....</textarea>
+            required
+            id="comment"></textarea>
         </div>
         <input class="btn btn-primary" type="submit" value="Submit">
       </form>
+      <hr>
+      <ul>
+      <h4>All reviews</h4>
+      <div>
+        <% for( review of destination.review) { %>
+          <div class="card-body">
+          <h5 class="card-title">Tester Kumar</h5>
+          <p class="card-text"><%= review.rating %>/5 <br> <%= review.comment %></p>
+          <form method="POST" action="/listings/<%= destination._id %>/review/<%= review._id %>?_method=DELETE" >
+            <button type="submit" class="btn btn-outline-danger">Delete</button>
+          </form>
+          <hr>
+        <% } %>
+      </div>
+      </ul>
     </div>
+    <br>
 </body>
