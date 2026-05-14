@@ -11,6 +11,7 @@ const {listingSchema, reviewSchema} = require('./schema.js');
 const review = require("./models/review.js");
 
 const listingRoutes = require('./routes/listing.js');
+const reviewRoutes = require('./routes/reviews.js');
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/listings', listingRoutes);
+app.use('/listings/:id/reviews', reviewRoutes);
 
 //vlaidation code middleware
 const validatereview = (req, res, next) => {
@@ -48,30 +50,6 @@ const validatereview = (req, res, next) => {
         next();
     }
 };
-
-
-// review route 
-// post route to store new review
-app.post( '/listings/:id/reviews',
-    validatereview,
-    wrapAsync(async (req,res) => {
-    let listing = await Listing.findById(req.params.id);
-    let newReview = new review (req.body.review);
-    await listing.review.push(newReview);
-
-    await newReview.save();
-    await listing.save();
-    console.log("response saved");
-    res.redirect(`/listings/${listing._id}`);
-}));
-
-//delete review route
-app.delete('/listings/:id/review/:reviewId', wrapAsync( async(req,res)=> {
-    let {id, reviewId} = req.params;
-    await Listing.findByIdAndUpdate(id, {$pull: {review: reviewId}});
-    await review.findByIdAndDelete(reviewId);
-    res.redirect(`/listings/${id}`);
-}));
 
 // to show error if no page available, 404
 app.use((req, res, next) => {

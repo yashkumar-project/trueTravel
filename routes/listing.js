@@ -21,7 +21,7 @@ const validatereview = (req, res, next) => {
 // index router for showing all listing.
 router.get('/',wrapAsync( async (req,res) => {
    const Listings = await Listing.find({});
-   res.render("./listings/listings.ejs", {Listings}); // ✅ FIX
+   res.render("./listings/listings.ejs", {Listings}); 
 }));
 
 // router to create new listings
