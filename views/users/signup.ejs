@@ -1,0 +1,50 @@
+<% layout('layouts/boilerplate') %>
+
+<body>
+  <div class="row mt-3">
+    <h1 class="col-6 offset-3">SignUp on True Travel</h1>
+    <div class="col-6 offset-3">
+      <form
+        action="/signup"
+        method="post"
+        class="needs-validation col-form-label"
+        novalidate
+      >
+        <div>
+          <label for="username" class="form-label">username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            required
+          />
+        </div>
+        <div>
+          <label for="email" class="form-label">email</label>
+          <input
+            type="email"
+            id="emial"
+            name="email"
+            class="form-control"
+            required
+          />
+        </div>
+        <div>
+          <label for="password" class="form-label">password</label>
+          <input
+            type="text"
+            id="password"
+            name="password"
+            class="form-control"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success mt-3">SignUp Now</button>
+      </form>
+      <form action="/login" method="get">
+        <button type="submit" class="btn btn-light mt-3">Login</button>
+      </form>
+    </div>
+  </div>
+</body>
