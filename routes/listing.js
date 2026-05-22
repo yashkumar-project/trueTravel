@@ -21,6 +21,10 @@ const validatereview = (req, res, next) => {
 // index router for showing all listing.
 router.get('/',wrapAsync( async (req,res) => {
    const Listings = await Listing.find({});
+   if (!Listings){
+    req.flash("error", " looking for post does not exist");
+    return res.redirect("/listings");
+   }
    res.render("./listings/listings.ejs", {Listings}); 
 }));
 
@@ -34,6 +38,10 @@ router.get('/:id', wrapAsync( async (req, res) => {
     let {id} = req.params;
     // console.log(id);
     const destination = await Listing.findById(id).populate("review");
+    if (!destination){
+    req.flash("error", " looking for post does not exist");
+    return res.redirect("/listings");
+   }
     res.render("./listings/show.ejs", {destination});    
 }));
 
@@ -45,7 +53,7 @@ router.get('/:id/edit',wrapAsync( async (req, res) => {
 }
 ));
 
-// router to update the listing
+// router to create new listing
 router.post('/',
     wrapAsync( async (req,res,next) => {
     let result = listingSchema.validate(req.body);
@@ -55,7 +63,8 @@ router.post('/',
     }
     const newListing = new Listing(req.body.listing);
     await newListing.save();
-    res.redirect('/listings?alert=newListingAdded');
+    req.flash("success", "New listing created successfully!");
+    res.redirect('/listings');
   })
 );
 

@@ -9,6 +9,27 @@ const wrapAsync = require('./utils/wrapAsync.js');
 const expressError = require('./utils/expressError.js');
 const {listingSchema, reviewSchema} = require('./schema.js');
 const review = require("./models/review.js");
+const session = require('express-session');
+const flash = require('connect-flash');
+
+const sessionOptions = {
+    secret: 'thisshould',
+    resave: false,
+    saveUninitialized: true,
+};
+
+app.get('/', (req, res) => {
+    res.send("hello world");
+});
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
 
 const listingRoutes = require('./routes/listing.js');
 const reviewRoutes = require('./routes/reviews.js');
@@ -33,9 +54,7 @@ async function main() {
     await mongoose.connect(uri);
 }
 
-app.get('/', (req, res) => {
-    res.send("hello world");
-});
+
 
 app.use('/listings', listingRoutes);
 app.use('/listings/:id/reviews', reviewRoutes);

@@ -1,0 +1,19 @@
+<!-- for success of message -->
+<% if(success.length> 0) { %>
+    <h4>
+        <div class="alert alert-success alert-dismissible fade show"  role="alert">
+            <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </h4>
+<% } %>
+
+<!-- for error of flash message -->
+<% if(error.length> 0) { %>
+    <h4>
+        <div class="alert alert-success alert-dismissible fade show"  role="alert">
+            <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </h4>
+<% } %>
