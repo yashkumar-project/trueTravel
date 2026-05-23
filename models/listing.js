@@ -10,16 +10,8 @@ const listSchema = new Schema({
   },
 
   image: {
-    filename: {
-      type: String,
-      default: "listingimage",
-    },
-    url: {
-      type: String,
-      required: [true, "image url is required"],
-      default: "https://shorturl.at/3ASIb",
-      set: (v) => (v === "" ? "https://shorturl.at/3ASIb" : v),
-    },
+    url: String,
+    filename: String
   },
 
   description: {
