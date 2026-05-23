@@ -1,23 +1,32 @@
 <% layout('layouts/boilerplate') %>
 
-<body>
+  <body>
     <br>
-    <h2 class="card-title">Welcomen to <%=destination.title%></h2>
+    <h2 class="card-title">Welcomen to <%=destination.title%>
+    </h2>
+    <h4>by <%=destination.owner.username%></h4>
     <br>
-    <div class="card mb-3" >
-       <img src="<%=destination.image.url%>" class="card-img-top" alt="<%=destination.title%>">
-     <div class="card-body">
-       <p class="card-text"><%= destination.description%></p>
-       <p>location: <%=destination.location%>, <%=destination.country%></p>
-       <h3 class="card-text"><small class="text-body-secondary">Price:  &#8377 <%=destination.price.toLocaleString("en-IN")%></small></h3>
-     </div>
+    <div class="card mb-3">
+      <img src="<%=destination.image.url%>" class="card-img-top" alt="<%=destination.title%>"
+        style="height: 500px; object-fit: cover;">
+      <div class="card-body">
+        <p class="card-text">
+          <%= destination.description%>
+        </p>
+        <p>location: <%=destination.location%>, <%=destination.country%>
+        </p>
+        <h3 class="card-text"><small class="text-body-secondary">Price: &#8377
+            <%=destination.price.toLocaleString("en-IN")%></small></h3>
+      </div>
     </div>
-
-    <a href="/listings/<%=destination._id%>/edit"><button type="button" class="btn btn-outline-secondary">Edit Detail</button></a>
+<% if(currentUser &&currentUser._id.equals(destination.owner._id)) { %>
+    <a href="/listings/<%=destination._id%>/edit"><button type="button" class="btn btn-outline-secondary">Edit
+        Detail</button></a>
     <br><br>
     <form method="POST" action="/listings/<%= destination._id%>?_method=DELETE">
-        <button type="submit" class="btn btn-outline-danger">Delete This Post</button>
+      <button type="submit" class="btn btn-outline-danger">Delete This Post</button>
     </form>
+<% } %>
     <br>
     <div class="mb-3 mt-3">
       <hr>
@@ -30,30 +39,28 @@
         </div>
         <div class="mb-3 mt-3">
           <label for="comment">comments</label>
-          <textarea 
-            name="review[comment]"
-            rows="5"
-            class="form-control"
-            required
-            id="comment"></textarea>
+          <textarea name="review[comment]" rows="5" class="form-control" required id="comment"></textarea>
         </div>
         <input class="btn btn-primary" type="submit" value="Submit">
       </form>
       <hr>
       <ul>
-      <h4>All reviews</h4>
-      <div>
-        <% for( review of destination.review) { %>
-          <div class="card-body">
-          <h5 class="card-title">Tester Kumar</h5>
-          <p class="card-text"><%= review.rating %>/5 <br> <%= review.comment %></p>
-          <form method="POST" action="/listings/<%= destination._id %>/reviews/<%= review._id %>?_method=DELETE" >
-            <button type="submit" class="btn btn-outline-danger">Delete</button>
-          </form>
-          <hr>
-        <% } %>
-      </div>
+        <h4>All reviews</h4>
+        <div>
+          <% for( review of destination.review) { %>
+            <div class="card-body">
+              <h5 class="card-title">Tester Kumar</h5>
+              <p class="card-text">
+                <%= review.rating %>/5 <br>
+                  <%= review.comment %>
+              </p>
+              <form method="POST" action="/listings/<%= destination._id %>/reviews/<%= review._id %>?_method=DELETE">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+              </form>
+              <hr>
+              <% } %>
+            </div>
       </ul>
     </div>
     <br>
-</body>
+  </body>

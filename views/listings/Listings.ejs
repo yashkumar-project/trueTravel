@@ -1,18 +1,24 @@
 <% layout('layouts/boilerplate') %>
 
-<body>
-  <br>
-<a href="/listings/new" class=""><button type="button" class="btn btn-outline-info ">Add new listing </button></a>
+  <body>
+    <div class="container py-2">
+      <h2 class="text-center mb-1">All Listings</h2>
 
-<% for( let list of Listings){ %>
-<div class="card mt-3" style="width: 18rem;">
-  <img src="<%= list.image.url %>" class="card-img-top" alt="..">
-  <div class="card-body">
-    <p class="card-text"><a style="text-decoration: none; color: black;" href="/listings/<%= list._id%>"><%= list.title %></a></p>
-  </div>
-</div>
-<br>
-<% } %>
-</body>
-
-
+      <div class="row row-cols-1 row-cols-md-3 g-4 py-3">
+        <% for(let list of Listings){ %>
+          <div class="col">
+            <div class="card h-100">
+              <img src="<%= list.image.url %>" class="card-img-top" alt="..."
+                style="height: 250px; object-fit: cover;" />
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= list.title %>
+                </h5>
+                <a href="/listings/<%= list._id%>" class="btn btn-light">View and Book</a>
+              </div>
+            </div>
+          </div>
+          <% } %>
+      </div>
+    </div>
+  </body>
