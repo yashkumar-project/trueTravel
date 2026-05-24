@@ -99,6 +99,7 @@ It is a **community-driven application** where users can explore listings, creat
 
 ## 🚀 Deployment
 The project has been successfully deployed and is live.
+https://true-travel.onrender.com/ -- live URL
 
 ---
 
